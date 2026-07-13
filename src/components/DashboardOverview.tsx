@@ -148,7 +148,7 @@ export default function DashboardOverview({
             ATHLETIC Rep timer 
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight font-display text-white">
-            95% workout 5% on time with our APP <span className="text-brand-yellow">Today</span>.
+            95% workout 5% with our <span className="text-brand-yellow">App</span>.
           </h1>
           <p className="text-gray-400 text-sm max-w-md">
             Track weight, sets, and progression. Stay consistent to build unbreakable strength and power.
