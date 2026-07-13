@@ -145,10 +145,10 @@ export default function DashboardOverview({
         <div className="space-y-1 relative z-10">
           <div className="flex items-center gap-2 text-brand-yellow text-sm font-semibold tracking-wider uppercase font-display">
             <Sparkles className="w-4 h-4 text-brand-yellow animate-pulse" />
-            ATHLETIC ENGINE ONLINE
+            ATHLETIC Rep timer 
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight font-display text-white">
-            Push Harder <span className="text-brand-yellow">Today</span>.
+            95% workout 5% on time with our APP <span className="text-brand-yellow">Today</span>.
           </h1>
           <p className="text-gray-400 text-sm max-w-md">
             Track weight, sets, and progression. Stay consistent to build unbreakable strength and power.
