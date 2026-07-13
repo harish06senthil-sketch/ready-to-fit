@@ -264,7 +264,7 @@ export default function App() {
             {/* User Email tag */}
             <div className="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-3 py-1.5 rounded-xl">
               <div className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse"></div>
-              <span className="text-[10px] md:text-xs font-semibold text-gray-400 font-mono">kingofleon143@gmail.com</span>
+              <span className="text-[10px] md:text-xs font-semibold text-gray-400 font-mono"></span>
             </div>
           </div>
 
