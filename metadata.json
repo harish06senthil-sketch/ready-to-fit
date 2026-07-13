@@ -1,0 +1,6 @@
+{
+  "name": "Workout Companion",
+  "description": "A dynamic and motivating fitness companion to log exercises, track sets/reps/weight, manage custom routines, set personal goals, and visualize workout progress.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
