@@ -32,6 +32,14 @@
         text-align: center;
         position: relative;
         box-shadow: 0 15px 40px rgba(0, 0, 0, .3);
+        /* Sets the default text color for elements inside the card to black */
+        color: #000000; 
+      }
+
+      /* Explicitly forces card heading and paragraph text to be black */
+      .install-card h2,
+      .install-card p {
+        color: #000000;
       }
 
       .close-btn {
@@ -42,6 +50,7 @@
         background: transparent;
         font-size: 22px;
         cursor: pointer;
+        color: #000000; /* Forces the close '✕' to be black */
       }
 
       h2 {
@@ -55,7 +64,7 @@
         border: none;
         border-radius: 8px;
         background: #2563eb;
-        color: white;
+        color: white; /* Keeps button text white for contrast against blue background */
         font-size: 16px;
         cursor: pointer;
       }
@@ -72,6 +81,7 @@
         border: none;
         border-radius: 8px;
         background: #e5e7eb;
+        color: #000000; /* Explicitly sets 'Continue in Browser' text to black */
         cursor: pointer;
         font-size: 15px;
       }
@@ -83,7 +93,7 @@
       }
 
       #install-overlay-status {
-        color: #666;
+        color: #1a1a1a; /* Changed from light grey to a highly readable dark grey/black */
         margin-top: 15px;
         min-height: 18px;
         font-size: 14px;
