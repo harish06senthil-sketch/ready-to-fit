@@ -3,7 +3,7 @@
    Version: 2.1
 ========================================================= */
 
-const CACHE_NAME = "zeriqai-v2.1";
+const CACHE_NAME = "PULSE_TRAK";
 
 // Fixed: Removed "public/" prefix and made paths absolute root URLs
 const STATIC_FILES = [
