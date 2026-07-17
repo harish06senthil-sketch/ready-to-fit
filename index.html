@@ -3,11 +3,214 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563eb">
     <title>My Google AI Studio App</title>
+    
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #install-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .install-card {
+        width: 90%;
+        max-width: 420px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, .3);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 14px;
+        border: none;
+        background: transparent;
+        font-size: 22px;
+        cursor: pointer;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      .install-btn {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 8px;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .install-btn:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+      }
+
+      .continue-btn {
+        width: 100%;
+        padding: 12px;
+        margin-top: 18px;
+        border: none;
+        border-radius: 8px;
+        background: #e5e7eb;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      ol {
+        text-align: left;
+        font-size: 14px;
+        padding-left: 20px;
+      }
+
+      #install-overlay-status {
+        color: #666;
+        margin-top: 15px;
+        min-height: 18px;
+        font-size: 14px;
+      }
+
+      hr {
+        margin: 20px 0;
+      }
+    </style>
   </head>
+  
   <body>
+    <!-- React Root Entry -->
     <div id="root"></div>
+
+    <!-- Install Overlay -->
+    <div id="install-overlay">
+      <div class="install-card">
+        <button id="btn-install-dismiss" class="close-btn">✕</button>
+        <h2>Install Bookverse</h2>
+        <p>Install this app for a faster experience and offline support.</p>
+        <button id="btn-install-app" class="install-btn" disabled>
+          Install App
+        </button>
+        <button id="btn-continue-browser" class="continue-btn">
+          Continue in Browser
+        </button>
+        <div id="install-overlay-status"></div>
+      </div>
+    </div>
+
+    <!-- Register Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) =>
+              console.log("Bookverse Service Worker Registered:", reg.scope)
+            )
+            .catch((err) =>
+              console.error("Service Worker Registration Failed:", err)
+            );
+        });
+      }
+    </script>
+
+    <!-- PWA Install Logic -->
+    <script>
+      (() => {
+        const overlay = document.getElementById("install-overlay");
+        const installBtn = document.getElementById("btn-install-app");
+        const statusEl = document.getElementById("install-overlay-status");
+        const dismissBtn = document.getElementById("btn-install-dismiss");
+        const continueBtn = document.getElementById("btn-continue-browser");
+
+        const DISMISS_KEY = "bookverse-install-dismissed";
+        let deferredPrompt = null;
+
+        function isStandalone() {
+          return (
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.navigator.standalone === true
+          );
+        }
+
+        function showOverlay() {
+          overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+          overlay.style.display = "none";
+        }
+
+        if (!isStandalone() && sessionStorage.getItem(DISMISS_KEY) !== "1") {
+          showOverlay();
+        }
+
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          installBtn.disabled = false;
+          console.log("Install Prompt Ready");
+        });
+
+        installBtn.addEventListener("click", async () => {
+          if (!deferredPrompt) {
+            statusEl.innerHTML =
+              "One-tap install isn't available.<br>Please use your browser menu and choose <b>Install App</b>.";
+            return;
+          }
+
+          installBtn.disabled = true;
+          deferredPrompt.prompt();
+
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log("Install Result:", outcome);
+
+          if (outcome === "accepted") {
+            statusEl.textContent = "Installation successful.";
+          } else {
+            statusEl.textContent = "Installation cancelled.";
+            installBtn.disabled = false;
+          }
+
+          deferredPrompt = null;
+        });
+
+        window.addEventListener("appinstalled", () => {
+          console.log("PWA Installed");
+          hideOverlay();
+          deferredPrompt = null;
+        });
+
+        dismissBtn.addEventListener("click", () => {
+          sessionStorage.setItem(DISMISS_KEY, "1");
+          hideOverlay();
+        });
+
+        continueBtn.addEventListener("click", () => {
+          sessionStorage.setItem(DISMISS_KEY, "1");
+          hideOverlay();
+        });
+      })();
+    </script>
+  
+    <!-- Main Application Script -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
