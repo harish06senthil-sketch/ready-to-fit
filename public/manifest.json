@@ -1,8 +1,8 @@
 {
   "id": "/",
   "name": "PULSE-TRAK",
-  "short_name": "app can understand your time for workouts ",
-  "description": "fitness timer app",
+  "short_name": "PULSE-TRAK",
+  "description": "Fitness timer app that understands your time for workouts",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -12,7 +12,7 @@
   "lang": "en",
   "dir": "ltr",
   "categories": [
-    "education",
+    "sports",
     "productivity"
   ],
   "icons": [
@@ -27,7 +27,7 @@
       "type": "image/png"
     },
     {
-      "src": "/icons/Frame 3.png",
+      "src": "/frame-3.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -41,8 +41,9 @@
       "url": "/?page=tutor",
       "icons": [
         {
-          "src": "/icons/icon-192.png",
-          "sizes": "192x192"
+          "src": "/icon_192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -53,11 +54,11 @@
       "url": "/?page=courses",
       "icons": [
         {
-          "src": "/icons/icon-192.png",
-          "sizes": "192x192"
+          "src": "/icon_192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     }
   ]
 }
-
